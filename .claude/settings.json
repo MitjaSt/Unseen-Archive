@@ -1,0 +1,57 @@
+{
+  "env": {
+    "DISABLE_TELEMETRY": "1",
+    "MCP_TIMEOUT": "60000"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(cp:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(jq:*)",
+      "Bash(docker:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(pre-commit:*)",
+      "Bash(rg:*)",
+      "Bash(ruff:*)",
+      "Bash(chmod:*)",
+      "Bash(curl:*)",
+      "Bash(npm:*)",
+      "Bash(pkill:*)",
+      "Bash(screencap:*)",
+      "Bash(touch:*)",
+      "Bash(uv:*)",
+      "Edit",
+      "Edit(*)",
+      "Read(//tmp/**)",
+      "Read(//Users/*/Downloads/**)",
+      "WebFetch(domain:*.app)",
+      "WebFetch(domain:*.com)",
+      "WebFetch(domain:*.dev)",
+      "WebFetch(domain:*.edu)",
+      "WebFetch(domain:*.gov)",
+      "WebFetch(domain:*.io)",
+      "WebFetch(domain:*.net)",
+      "WebFetch(domain:*.org)",
+      "WebFetch(domain:*.us)",
+      "Write",
+      "Bash(set -a)",
+      "Bash(source:*)",
+      "Bash(set +a)",
+      "Bash(docker-compose up:*)",
+      "Bash(tree:*)",
+      "Bash(python -c:*)"
+    ],
+    "deny": [],
+    "additionalDirectories": [
+      "~/git"
+    ]
+  },
+  "enabledPlugins": {
+    "example-skills@anthropic-agent-skills": true,
+    "cli-ninja@cli-ninja": true
+  },
+  "alwaysThinkingEnabled": false
+}
