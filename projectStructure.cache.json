@@ -1,0 +1,38 @@
+[
+  {
+    "filename": "/Users/mitjastepan/projects/unseen_archive/postcss.config.mjs",
+    "errorMessage": "🔥 File 'postcss.config.mjs' is invalid. 🔥\n\nAllowed names  = app, public, .claude, .vscode, node_modules\nError location = ./postcss.config.mjs\n\n"
+  },
+  {
+    "filename": "/Users/mitjastepan/projects/unseen_archive/next.config.ts",
+    "errorMessage": "🔥 File 'next.config.ts' is invalid. 🔥\n\nAllowed names  = app, public, .claude, .vscode, node_modules\nError location = ./next.config.ts\n\n"
+  },
+  {
+    "filename": "/Users/mitjastepan/projects/unseen_archive/eslint.config.mjs",
+    "errorMessage": "🔥 File 'eslint.config.mjs' is invalid. 🔥\n\nAllowed names  = app, public, .claude, .vscode, node_modules\nError location = ./eslint.config.mjs\n\n"
+  },
+  {
+    "filename": "/Users/mitjastepan/projects/unseen_archive/postcss.config.mjs",
+    "errorMessage": "🔥 File 'postcss.config.mjs' is invalid. 🔥\n\nAllowed names  = app, public\nError location = ./postcss.config.mjs\n\n"
+  },
+  {
+    "filename": "/Users/mitjastepan/projects/unseen_archive/next.config.ts",
+    "errorMessage": "🔥 File 'next.config.ts' is invalid. 🔥\n\nAllowed names  = app, public\nError location = ./next.config.ts\n\n"
+  },
+  {
+    "filename": "/Users/mitjastepan/projects/unseen_archive/app/(main)/add/page.tsx",
+    "errorMessage": "🔥 Folder 'app' is invalid. 🔥\n\nAllowed names  = lib\nError location = ./app\n\n"
+  },
+  {
+    "filename": "/Users/mitjastepan/projects/unseen_archive/lib/services/configuration.ts",
+    "errorMessage": "🔥 Folder 'services' is invalid. 🔥\n\nAccording to the structure, the 'lib' folder can only contain files.\nError location = ./lib/services\n\n"
+  },
+  {
+    "filename": "/Users/mitjastepan/projects/unseen_archive/lib/store/itemsSlice.ts",
+    "errorMessage": "🔥 Folder 'store' is invalid. 🔥\n\nAccording to the structure, the 'lib' folder can only contain files.\nError location = ./lib/store\n\n"
+  },
+  {
+    "filename": "/Users/mitjastepan/projects/unseen_archive/eslint.config.mjs",
+    "errorMessage": "🔥 File 'eslint.config.mjs' is invalid. 🔥\n\nAllowed names  = app, public\nError location = ./eslint.config.mjs\n\n"
+  }
+]

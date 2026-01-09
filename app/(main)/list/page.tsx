@@ -1,39 +1,39 @@
 "use client";
 
-import { useAppSelector, useAppDispatch } from '@/lib/store/hooks';
-import { removeItem, reorderItems } from '@/lib/store/itemsSlice';
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import { removeItem, reorderItems, Item } from '@/lib/store/itemsSlice';
 import { setSelectedFilter } from '@/lib/store/listPageSlice';
-import { Button } from 'primereact/button';
-import { Card } from 'primereact/card';
-import { Chip } from 'primereact/chip';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { Category } from '@/lib/store/categoriesSlice';
 import {
-  DndContext,
   closestCenter,
+  DndContext,
+  DragEndEvent,
   KeyboardSensor,
   PointerSensor,
   useSensor,
   useSensors,
-  DragEndEvent,
 } from '@dnd-kit/core';
 import {
-  arrayMove,
+  rectSortingStrategy,
   SortableContext,
   sortableKeyboardCoordinates,
-  useSortable,
-  rectSortingStrategy,
+  useSortable
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Button } from 'primereact/button';
+import { Card } from 'primereact/card';
+import { Chip } from 'primereact/chip';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { useEffect, useState } from 'react';
 
 // Sortable Item Component
 interface SortableItemProps {
   id: string;
-  item: any;
-  category: any;
+  item: Item;
+  category?: Category;
   failedFavicons: Set<string>;
   handleDelete: (id: string) => void;
   handleFaviconError: (url: string) => void;
@@ -181,7 +181,7 @@ export default function List() {
   }, [selectedFilter, isInitialized, router]);
 
   const getCategoryById = (categoryId?: string) => {
-    if (!categoryId) return null;
+    if (!categoryId) return undefined;
     return categories.find(cat => cat.id === categoryId);
   };
 
@@ -193,8 +193,8 @@ export default function List() {
   const filteredItems = selectedFilter === null
     ? items // Show all
     : selectedFilter === 'uncategorized'
-    ? items.filter(item => !item.categoryId)
-    : items.filter(item => item.categoryId === selectedFilter);
+      ? items.filter(item => !item.categoryId)
+      : items.filter(item => item.categoryId === selectedFilter);
 
   const handleDelete = (id: string) => {
     confirmDialog({

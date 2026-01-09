@@ -1,0 +1,68 @@
+{
+  "structure": {
+    "children": [
+      {
+        "name": "app",
+        "children": [
+          {
+            "name": "(main)",
+            "children": [
+              {
+                "ruleId": "nextjs-route"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "lib",
+        "children": [
+          {
+            "name": "services",
+            "children": [
+              {
+                "ruleId": "ts-file"
+              }
+            ]
+          },
+          {
+            "name": "store",
+            "children": [
+              {
+                "ruleId": "ts-file"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "public"
+      }
+    ]
+  },
+  "rules": {
+    "nextjs-route": {
+      "folderRecursionLimit": 2,
+      "children": [
+        {
+          "name": "page.tsx"
+        },
+        {
+          "name": "layout.tsx"
+        },
+        {
+          "name": "loading.tsx"
+        },
+        {
+          "name": "error.tsx"
+        },
+        {
+          "name": "not-found.tsx"
+        }
+      ]
+    },
+    "ts-file": {
+      "filePattern": "*.{ts,tsx}"
+    }
+  }
+}
