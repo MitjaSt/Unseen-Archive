@@ -24,6 +24,7 @@ import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Chip } from 'primereact/chip';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { Dialog } from 'primereact/dialog';
 import { useEffect, useState, useRef } from 'react';
 
 // Sortable Item Component
@@ -37,6 +38,7 @@ interface SortableItemProps {
   getFaviconUrl: (url: string) => string;
   parseLink: (url: string) => { domain: string; path: string };
   truncateText: (html: string) => string;
+  handleNoteClick: (note: string) => void;
 }
 
 function SortableItem({
@@ -49,6 +51,7 @@ function SortableItem({
   getFaviconUrl,
   parseLink,
   truncateText,
+  handleNoteClick,
 }: SortableItemProps) {
   const {
     attributes,
@@ -77,51 +80,65 @@ function SortableItem({
     <div ref={setNodeRef} style={style}>
       <Card className={cardClassName} style={cardStyle}>
         <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between">
-            <div {...attributes} {...listeners} className="cursor-move">
+          {/* Header: Icon + Title + Delete */}
+          <div className="flex items-center gap-2">
+            <div {...attributes} {...listeners} className="cursor-move flex-shrink-0">
               {item.type === ItemType.LINK && item.link ? (
                 failedFavicons.has(item.link) || !getFaviconUrl(item.link) ? (
-                  <i className="pi pi-link text-lg text-vivid-royal"></i>
+                  <i className="pi pi-link text-base text-vivid-royal"></i>
                 ) : (
                   <img
                     src={getFaviconUrl(item.link)}
                     alt={item.link}
                     title={item.link}
-                    width={18}
-                    height={18}
+                    width={16}
+                    height={16}
                     onError={() => handleFaviconError(item.link!)}
                   />
                 )
               ) : (
-                <i className="pi pi-file-edit text-lg text-glaucous"></i>
+                <i className="pi pi-file-edit text-base text-glaucous"></i>
               )}
             </div>
+
+            <div className="flex-1 min-w-0">
+              {item.type === ItemType.LINK && item.link && (
+                <p className="font-bold text-sm text-gray-700 truncate">{parseLink(item.link).domain}</p>
+              )}
+              {item.type === ItemType.NOTE && (
+                <p className="font-bold text-sm text-gray-700 truncate">Note</p>
+              )}
+            </div>
+
             <Button
               icon="pi pi-trash"
-              className="p-button-rounded p-button-danger p-button-text p-button-sm !w-8 !h-8 !p-0"
+              className="p-button-rounded p-button-danger p-button-text p-button-sm !w-6 !h-6 !p-0 flex-shrink-0"
               onClick={() => handleDelete(item.id)}
               aria-label="Delete"
             />
           </div>
 
-          <div className="text-sm">
+          {/* Content */}
+          <div className="text-xs">
             {item.type === ItemType.LINK && item.link && (
               <>
-                <div className="text-gray-700 mb-2 break-words">
-                  <p className="font-bold">{parseLink(item.link).domain}</p>
-                  <p className="text-xs text-gray-500">{parseLink(item.link).path}</p>
-                </div>
+                <p className="text-gray-500 mb-1.5 truncate">{parseLink(item.link).path}</p>
                 <Button
                   label="Visit"
                   icon="pi pi-external-link"
-                  className="p-button-sm w-full !py-1 !text-xs"
+                  className="p-button-sm w-full !py-0.5 !text-xs !h-6"
                   onClick={() => window.open(item.link, '_blank')}
                 />
               </>
             )}
 
             {item.type === ItemType.NOTE && item.note && (
-              <p className="text-gray-700 break-words">{truncateText(item.note)}</p>
+              <p
+                className="text-gray-700 break-words line-clamp-3 cursor-pointer hover:text-vivid-royal transition-colors"
+                onClick={() => handleNoteClick(item.note!)}
+              >
+                {truncateText(item.note)}
+              </p>
             )}
           </div>
         </div>
@@ -137,6 +154,8 @@ export default function List() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [failedFavicons, setFailedFavicons] = useState<Set<string>>(new Set());
+  const [noteDialogVisible, setNoteDialogVisible] = useState(false);
+  const [selectedNote, setSelectedNote] = useState<string>('');
   const isInitialized = useRef(false);
 
   const sensors = useSensors(
@@ -249,9 +268,29 @@ export default function List() {
     return text.length > 100 ? text.substring(0, 100) + '...' : text;
   };
 
+  const handleNoteClick = (note: string) => {
+    setSelectedNote(note);
+    setNoteDialogVisible(true);
+  };
+
   return (
     <div className="p-6">
       <ConfirmDialog />
+
+      {/* Note Dialog */}
+      <Dialog
+        header="Note"
+        visible={noteDialogVisible}
+        onHide={() => setNoteDialogVisible(false)}
+        style={{ width: '90vw', maxWidth: '600px' }}
+        modal
+      >
+        <div
+          className="prose max-w-none"
+          dangerouslySetInnerHTML={{ __html: selectedNote }}
+        />
+      </Dialog>
+
       <h1 className="text-3xl font-bold mb-6 text-coffee-bean border-b-2 border-glaucous pb-2">List</h1>
 
       {/* Filter Section */}
@@ -292,7 +331,7 @@ export default function List() {
           items={filteredItems.map((item) => item.id)}
           strategy={rectSortingStrategy}
         >
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 auto-rows-min">
+          <div className="grid grid-cols-2 sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 auto-rows-min">
             {filteredItems.map((item) => {
               const category = getCategoryById(item.categoryId);
 
@@ -308,6 +347,7 @@ export default function List() {
                   getFaviconUrl={getFaviconUrl}
                   parseLink={parseLink}
                   truncateText={truncateText}
+                  handleNoteClick={handleNoteClick}
                 />
               );
             })}
