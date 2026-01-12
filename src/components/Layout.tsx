@@ -53,7 +53,7 @@ export default function Layout() {
         </div>
         <ul className="space-y-2 flex flex-col h-[calc(100vh-13rem)]">
           <li>
-            <Link to="/list" className={`flex items-center gap-3 py-2 px-4 rounded transition-colors hover:bg-vivid-royal ${location.pathname === '/list' ? 'bg-vivid-royal' : ''}`}>
+            <Link to="/list" className={`flex items-center gap-3 py-2 px-4 rounded transition-colors hover:bg-vivid-royal ${location.pathname === '/list' || location.hash === '#/list' ? 'bg-vivid-royal' : ''}`}>
               <i className="pi pi-list text-lg"></i>
               {!isCollapsed && <span>List</span>}
             </Link>

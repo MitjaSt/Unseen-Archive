@@ -9,5 +9,11 @@
   },
   "editor.formatOnSave": true,
   "typescript.preferences.organizeImportsOnSave": true,
-  "javascript.preferences.organizeImportsOnSave": true
+  "javascript.preferences.organizeImportsOnSave": true,
+  "files.associations": {
+    "Makefile*.inc": "makefile",
+    "*.mk": "makefile"
+  },
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore"
 }

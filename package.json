@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:extension": "npm run icons && npm run build && node scripts/build-service-worker.mjs && node scripts/prepare-extension.mjs",
-    "icons": "node scripts/generate-icons.mjs",
+    "build:extension": "npm run build:icons && npm run build && node scripts/build-service-worker.mjs && node scripts/prepare-extension.mjs",
+    "build:icons": "node scripts/generate-icons.mjs",
     "preview": "vite preview",
     "lint": "eslint",
     "test": "vitest",
@@ -50,6 +50,7 @@
     "jsdom": "^27.4.0",
     "playwright": "^1.57.0",
     "postcss": "^8.4.49",
+    "sass": "^1.97.2",
     "sharp": "^0.34.5",
     "tailwindcss": "^3.4.19",
     "typescript": "^5",

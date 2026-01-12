@@ -1,0 +1,42 @@
+/* CSS Custom Properties for Runtime Theming */
+:root {
+  // App colors
+  --background: #{$background-light};
+  --foreground: #{$foreground-light};
+
+  // Primary color - using vivid-royal
+  --primary-color: #{$primary-color};
+  --primary-color-text: #{$white};
+  --primary-hover-color: #{$primary-hover};
+
+  // Secondary color - using glaucous
+  --secondary-color: #{$secondary-color};
+
+  // Success color
+  --green-500: #{$success-color};
+  --green-600: #16a34a;
+
+  // Danger/Error color - using scarlet-fire
+  --red-500: #{$danger-color};
+  --red-600: #{$danger-hover};
+
+  // Text colors
+  --text-color: #{$text-color-dark};
+  --text-color-secondary: #{$text-color};
+
+  // Surface colors
+  --surface-0: #{$ghost-white};
+  --surface-50: #{$gray-50};
+  --surface-100: #{$gray-100};
+  --surface-200: #{$gray-200};
+
+  // Hover states
+  --surface-hover: #{$secondary-color};
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #{$background-dark};
+    --foreground: #{$foreground-dark};
+  }
+}

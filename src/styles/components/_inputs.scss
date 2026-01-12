@@ -1,0 +1,35 @@
+/* PrimeReact Input Overrides */
+.p-inputtext {
+  @include input-base;
+  color: $text-color !important;
+  appearance: none !important;
+
+  &:enabled {
+    &:hover {
+      border-color: var(--primary-color, $primary-color) !important;
+    }
+
+    &:focus {
+      @include focus-state;
+    }
+  }
+
+  &.p-invalid {
+    border-color: $error-color !important;
+  }
+}
+
+/* Dropdown */
+.p-dropdown {
+  @include input-base;
+
+  &:not(.p-disabled) {
+    &:hover {
+      border-color: var(--primary-color, $primary-color) !important;
+    }
+
+    &.p-focus {
+      @include focus-state;
+    }
+  }
+}

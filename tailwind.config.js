@@ -1,3 +1,5 @@
+import colors from './src/styles/theme/colors.js';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -7,11 +9,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        'coffee-bean': '#0d0106',
-        'vivid-royal': '#3626a7',
-        'glaucous': '#657ed4',
-        'scarlet-fire': '#ff331f',
-        'ghost-white': '#fbfbff',
+        // Brand colors (original names)
+        'coffee-bean': colors['coffee-bean'],
+        'vivid-royal': colors['vivid-royal'],
+        'glaucous': colors['glaucous'],
+        'scarlet-fire': colors['scarlet-fire'],
+        'ghost-white': colors['ghost-white'],
+
+        // Semantic aliases for easier usage
+        'primary': colors.primary,
+        'secondary': colors.secondary,
+        'success': colors.success,
+        'danger': colors.danger,
       },
     },
   },
