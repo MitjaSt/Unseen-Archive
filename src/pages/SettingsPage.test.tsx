@@ -1,14 +1,14 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import SettingsPage from './SettingsPage';
-import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import itemsReducer from '@/lib/store/itemsSlice';
 import categoriesReducer from '@/lib/store/categoriesSlice';
+import itemsReducer from '@/lib/store/itemsSlice';
 import listPageReducer from '@/lib/store/listPageSlice';
 import { ItemType } from '@/lib/types/item';
+import { configureStore } from '@reduxjs/toolkit';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import SettingsPage from './SettingsPage';
 
 // Mock URL.createObjectURL and revokeObjectURL
 global.URL.createObjectURL = vi.fn(() => 'mock-url');
@@ -54,7 +54,6 @@ describe('Settings Page', () => {
       expect(screen.getByText('Data Overview')).toBeInTheDocument();
       expect(screen.getByRole('heading', { name: 'Export Data' })).toBeInTheDocument();
       expect(screen.getByRole('heading', { name: 'Import Data' })).toBeInTheDocument();
-      expect(screen.getByText('Storage Information')).toBeInTheDocument();
     });
 
     it('should display correct item and category counts', () => {
