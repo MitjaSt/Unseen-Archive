@@ -37,6 +37,9 @@ const categoriesSlice = createSlice({
         state.categories[index] = action.payload;
       }
     },
+    setState: (_state, action: PayloadAction<CategoriesState>) => {
+      return action.payload;
+    },
   },
 });
 

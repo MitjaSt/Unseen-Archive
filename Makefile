@@ -5,10 +5,20 @@ include Makefile.misc.inc
 
 # Development
 start-dev:
-	$(call log, Clearing out .next folder ...)
-	rm -rf .next
-	$(call log, Running dev server on port $(DEV_SERVER_PORT)...)
-	npm run dev -- -p $(DEV_SERVER_PORT)
+	$(call log, Clearing out dist folder ...)
+	rm -rf dist
+	$(call log, Running Vite dev server on port $(DEV_SERVER_PORT)...)
+	npm run dev -- --port $(DEV_SERVER_PORT)
+
+# Build
+build:
+	$(call log, Building extension ...)
+	npm run build:extension
+
+build-preview: build
+	$(call log, Running Vite preview ...)
+	npm run preview
+
 
 # Tests
 test: # Watched

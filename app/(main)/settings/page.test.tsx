@@ -7,6 +7,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import itemsReducer from '@/lib/store/itemsSlice';
 import categoriesReducer from '@/lib/store/categoriesSlice';
 import listPageReducer from '@/lib/store/listPageSlice';
+import { ItemType } from '@/lib/types/item';
 
 // Mock URL.createObjectURL and revokeObjectURL
 global.URL.createObjectURL = vi.fn(() => 'mock-url');
@@ -53,8 +54,8 @@ describe('Settings Page', () => {
       const initialState = {
         items: {
           items: [
-            { id: '1', type: 'link' as const, link: 'https://example.com', createdAt: '2024-01-01' },
-            { id: '2', type: 'note' as const, note: 'Test note', createdAt: '2024-01-02' },
+            { id: '1', type: ItemType.LINK, link: 'https://example.com', createdAt: '2024-01-01' },
+            { id: '2', type: ItemType.NOTE, note: 'Test note', createdAt: '2024-01-02' },
           ],
         },
         categories: {
@@ -92,7 +93,7 @@ describe('Settings Page', () => {
       const initialState = {
         items: {
           items: [
-            { id: '1', type: 'link', link: 'https://example.com', createdAt: '2024-01-01' },
+            { id: '1', type: ItemType.LINK, link: 'https://example.com', createdAt: '2024-01-01' },
           ],
         },
         categories: {
@@ -122,7 +123,7 @@ describe('Settings Page', () => {
       const initialState = {
         items: {
           items: [
-            { id: '1', type: 'link' as const, link: 'https://example.com', createdAt: '2024-01-01' },
+            { id: '1', type: ItemType.LINK, link: 'https://example.com', createdAt: '2024-01-01' },
           ],
         },
         categories: {
@@ -137,6 +138,78 @@ describe('Settings Page', () => {
       const exportButton = screen.getByRole('button', { name: /export data/i });
       expect(exportButton).toBeInTheDocument();
       expect(exportButton).toBeEnabled();
+    });
+
+    it('should export valid JSON with correct structure', async () => {
+      const user = userEvent.setup();
+      let capturedBlobData: string | null = null;
+
+      // Mock Blob constructor
+      const OriginalBlob = global.Blob;
+      // @ts-expect-error - Mocking Blob constructor
+      global.Blob = class MockBlob extends OriginalBlob {
+        constructor(content: BlobPart[], options?: BlobPropertyBag) {
+          super(content, options);
+          if (content[0] && typeof content[0] === 'string') {
+            capturedBlobData = content[0];
+          }
+        }
+      };
+
+      const initialState = {
+        items: {
+          items: [
+            { id: '1', type: ItemType.LINK, link: 'https://example.com', createdAt: '2024-01-01' },
+            { id: '2', type: ItemType.NOTE, note: 'Test note', createdAt: '2024-01-02' },
+          ],
+        },
+        categories: {
+          categories: [
+            { id: '1', name: 'Work', color: 'FF0000', createdAt: '2024-01-01' },
+            { id: '2', name: 'Personal', color: '00FF00', createdAt: '2024-01-02' },
+          ],
+        },
+      };
+
+      renderWithStore(<Settings />, initialState);
+
+      const exportButton = screen.getByRole('button', { name: /export data/i });
+      await user.click(exportButton);
+
+      // Wait for export to complete
+      await waitFor(() => {
+        expect(capturedBlobData).not.toBeNull();
+      });
+
+      // Validate JSON structure
+      expect(capturedBlobData).not.toBeNull();
+      const exportedData = JSON.parse(capturedBlobData!);
+
+      // Check that all required keys exist
+      expect(exportedData).toHaveProperty('items');
+      expect(exportedData).toHaveProperty('categories');
+      expect(exportedData).toHaveProperty('exportDate');
+      expect(exportedData).toHaveProperty('version');
+
+      // Check that items array is correct
+      expect(Array.isArray(exportedData.items)).toBe(true);
+      expect(exportedData.items).toHaveLength(2);
+      expect(exportedData.items[0]).toHaveProperty('id');
+      expect(exportedData.items[0]).toHaveProperty('type');
+      expect(exportedData.items[0]).toHaveProperty('createdAt');
+
+      // Check that categories array is correct
+      expect(Array.isArray(exportedData.categories)).toBe(true);
+      expect(exportedData.categories).toHaveLength(2);
+      expect(exportedData.categories[0]).toHaveProperty('id');
+      expect(exportedData.categories[0]).toHaveProperty('name');
+      expect(exportedData.categories[0]).toHaveProperty('color');
+
+      // Check version
+      expect(exportedData.version).toBe('1.0');
+
+      // Restore original Blob
+      global.Blob = OriginalBlob;
     });
   });
 

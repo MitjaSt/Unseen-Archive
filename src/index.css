@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Prevent Tailwind from removing button backgrounds and borders */
+  button {
+    background-color: revert;
+    border: revert;
+    padding: revert;
+    color: revert;
+    border-radius: revert;
+  }
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* PrimeReact Theme Overrides */
+:root {
+  /* Primary color - using vivid-royal */
+  --primary-color: #3626a7;
+  --primary-color-text: #ffffff;
+
+  /* Secondary color - using glaucous */
+  --secondary-color: #657ed4;
+
+  /* Success color - using vivid-royal */
+  --green-500: #3626a7;
+  --green-600: #2d1f8a;
+
+  /* Danger/Error color - using scarlet-fire */
+  --red-500: #ff331f;
+  --red-600: #e62d1c;
+
+  /* Text colors */
+  --text-color: #0d0106;
+  --text-color-secondary: #495057;
+
+  /* Surface colors */
+  --surface-0: #fbfbff;
+  --surface-50: #fafafa;
+  --surface-100: #f5f5f5;
+  --surface-200: #eeeeee;
+
+  /* Hover states */
+  --primary-hover-color: #2d1f8a;
+  --surface-hover: #657ed4;
+}

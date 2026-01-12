@@ -1,5 +1,3 @@
-"use client";
-
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { removeItem, reorderItems, Item } from '@/lib/store/itemsSlice';
 import { setSelectedFilter } from '@/lib/store/listPageSlice';
@@ -21,9 +19,7 @@ import {
   useSortable
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Chip } from 'primereact/chip';
@@ -87,14 +83,13 @@ function SortableItem({
                 failedFavicons.has(item.link) || !getFaviconUrl(item.link) ? (
                   <i className="pi pi-link text-lg text-vivid-royal"></i>
                 ) : (
-                  <Image
+                  <img
                     src={getFaviconUrl(item.link)}
                     alt={item.link}
                     title={item.link}
                     width={18}
                     height={18}
                     onError={() => handleFaviconError(item.link!)}
-                    unoptimized
                   />
                 )
               ) : (
@@ -140,7 +135,7 @@ export default function List() {
   const categories = useAppSelector((state) => state.categories.categories);
   const selectedFilter = useAppSelector((state) => state.listPage.selectedFilter);
   const dispatch = useAppDispatch();
-  const router = useRouter();
+  const navigate = useNavigate();
   const [failedFavicons, setFailedFavicons] = useState<Set<string>>(new Set());
   const [isInitialized, setIsInitialized] = useState(false);
 
@@ -170,16 +165,16 @@ export default function List() {
     if (selectedFilter === null) {
       // Remove hash when "All" is selected
       if (window.location.hash) {
-        router.push('/list', { scroll: false });
+        navigate('/list');
       }
     } else {
       // Set hash to category filter
       const newHash = `#category=${encodeURIComponent(selectedFilter)}`;
       if (window.location.hash !== newHash) {
-        router.push(`/list${newHash}`, { scroll: false });
+        navigate(`/list${newHash}`);
       }
     }
-  }, [selectedFilter, isInitialized, router]);
+  }, [selectedFilter, isInitialized, navigate]);
 
   const getCategoryById = (categoryId?: string) => {
     if (!categoryId) return undefined;
@@ -318,7 +313,7 @@ export default function List() {
             })}
 
             {/* Add Item Card */}
-            <Link href="/add">
+            <Link to="/add">
               <Card className="shadow-md h-fit cursor-pointer hover:shadow-lg transition-shadow border-2 border-dashed border-gray-300 hover:border-vivid-royal">
                 <div className="flex flex-col items-center justify-center gap-3 py-3">
                   <i className="pi pi-plus text-4xl text-vivid-royal"></i>

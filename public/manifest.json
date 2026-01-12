@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Unseen Archive",
+  "version": "1.0.0",
+  "description": "Organize and archive your links and notes locally",
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "action": {
+    "default_title": "Unseen Archive"
+  },
+  "side_panel": {
+    "default_path": "index.html"
+  },
+  "permissions": [
+    "storage",
+    "sidePanel"
+  ],
+  "commands": {
+    "toggle": {
+      "suggested_key": {
+        "default": "Alt+Shift+A"
+      },
+      "description": "Toggle panel"
+    }
+  },
+  "icons": {
+    "16": "icon-16.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  }
+}

@@ -1,7 +1,7 @@
-"use client";
+
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useNavigate } from 'react-router-dom';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Editor } from 'primereact/editor';
@@ -37,7 +37,7 @@ const noteSchema = z.object({
 const itemSchema = z.discriminatedUnion('type', [linkSchema, noteSchema]);
 
 export default function Add() {
-  const router = useRouter();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.categories.categories || []);
 
@@ -90,7 +90,7 @@ export default function Add() {
     setCategoryId(undefined);
 
     if (navigateToList) {
-      router.push('/list');
+      navigate('/list');
     }
 
     return true;
@@ -124,7 +124,7 @@ export default function Add() {
   };
 
   const handleCancel = () => {
-    router.push('/list');
+    navigate('/list');
   };
 
   const renderHeader = () => {

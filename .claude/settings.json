@@ -51,7 +51,8 @@
   },
   "enabledPlugins": {
     "example-skills@anthropic-agent-skills": true,
-    "cli-ninja@cli-ninja": true
+    "cli-ninja@cli-ninja": true,
+    "github@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": false
 }

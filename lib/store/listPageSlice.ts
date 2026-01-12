@@ -18,6 +18,9 @@ const listPageSlice = createSlice({
     clearSelectedFilter: (state) => {
       state.selectedFilter = null;
     },
+    setState: (_state, action: PayloadAction<ListPageState>) => {
+      return action.payload;
+    },
   },
 });
 
