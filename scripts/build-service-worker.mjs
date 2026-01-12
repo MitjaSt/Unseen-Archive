@@ -12,7 +12,7 @@ async function buildServiceWorker() {
 
   try {
     await build({
-      entryPoints: [path.join(__dirname, '../app/service-workers/background-worker.ts')],
+      entryPoints: [path.join(__dirname, '../src/service-worker.ts')],
       bundle: true,
       outfile: path.join(distDir, 'service-worker.js'),
       format: 'iife',

@@ -1,18 +1,18 @@
 
 
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Dropdown } from 'primereact/dropdown';
-import { InputText } from 'primereact/inputtext';
-import { Editor } from 'primereact/editor';
-import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
-import { ColorPicker } from 'primereact/colorpicker';
-import { Chip } from 'primereact/chip';
+import { addCategory, removeCategory } from '@/lib/store/categoriesSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { addItem, clearCategoryFromItems } from '@/lib/store/itemsSlice';
-import { addCategory, removeCategory } from '@/lib/store/categoriesSlice';
 import { ItemType } from '@/lib/types/item';
+import { Button } from 'primereact/button';
+import { Chip } from 'primereact/chip';
+import { ColorPicker } from 'primereact/colorpicker';
+import { Dialog } from 'primereact/dialog';
+import { Dropdown } from 'primereact/dropdown';
+import { Editor } from 'primereact/editor';
+import { InputText } from 'primereact/inputtext';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 // Zod validation schemas
@@ -118,26 +118,21 @@ export default function Add() {
     validateAndSubmit(true);
   };
 
-  const handleSubmitAndAddAnother = (e: React.MouseEvent) => {
-    e.preventDefault();
-    validateAndSubmit(false);
-  };
-
   const handleCancel = () => {
     navigate('/list');
   };
 
-  const renderHeader = () => {
+  const renderEditorHeader = () => {
     return (
-        <span className="ql-formats">
-            <button className="ql-bold" aria-label="Bold" />
-            <button className="ql-italic" aria-label="Italic" />
-            <button className="ql-underline" aria-label="Underline" />
-        </span>
+      <span className="ql-formats">
+        <button className="ql-bold" aria-label="Bold" />
+        <button className="ql-italic" aria-label="Italic" />
+        <button className="ql-underline" aria-label="Underline" />
+      </span>
     );
   };
 
-  const header = renderHeader();
+  const header = renderEditorHeader();
 
   const categoryOptions = categories.map(cat => ({
     label: cat.name,
@@ -245,7 +240,7 @@ export default function Add() {
         <div className="flex justify-between gap-4">
           <Button type="button" label="Cancel" icon="pi pi-times" className="p-button-secondary" onClick={handleCancel} />
           <div className="flex gap-4">
-            <Button type="button" label="Submit & Add Another" icon="pi pi-plus" className="p-button-success" onClick={handleSubmitAndAddAnother} />
+            <Button type="button" label="Submit & Add Another" icon="pi pi-plus" className="p-button-success" onClick={handleSubmit} />
             <Button type="submit" label="Submit" icon="pi pi-check" className="p-button-primary" />
           </div>
         </div>
@@ -285,6 +280,7 @@ export default function Add() {
                     value={newCategoryColor}
                     onChange={(e) => setNewCategoryColor(e.value as string)}
                     format="hex"
+                    appendTo="self"
                   />
                   <div
                     className="w-8 h-8 rounded border"

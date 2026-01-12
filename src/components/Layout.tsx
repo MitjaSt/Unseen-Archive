@@ -1,18 +1,14 @@
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import { configService } from '@/lib/services/configuration';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function Layout() {
   const location = useLocation();
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  // Load collapsed state from localStorage on mount
-  useEffect(() => {
+  // Initialize state from localStorage directly
+  const [isCollapsed, setIsCollapsed] = useState(() => {
     const saved = localStorage.getItem('navCollapsed');
-    if (saved !== null) {
-      setIsCollapsed(JSON.parse(saved));
-    }
-  }, []);
+    return saved !== null ? JSON.parse(saved) : false;
+  });
 
   // Save collapsed state to localStorage
   const toggleCollapse = () => {

@@ -2,15 +2,112 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  /* Prevent Tailwind from removing button backgrounds and borders */
-  button {
-    background-color: revert;
-    border: revert;
-    padding: revert;
-    color: revert;
-    border-radius: revert;
-  }
+/* Fix PrimeReact components - prevent Tailwind reset from breaking them */
+
+/* Buttons */
+.p-button {
+  background: var(--primary-color, #3626a7) !important;
+  color: var(--primary-color-text, #ffffff) !important;
+  border: 1px solid var(--primary-color, #3626a7) !important;
+  padding: 0.75rem 1.25rem !important;
+  font-size: 1rem !important;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s !important;
+  border-radius: 3px !important;
+}
+
+.p-button:hover {
+  background: var(--primary-hover-color, #2d1f8a) !important;
+  border-color: var(--primary-hover-color, #2d1f8a) !important;
+}
+
+.p-button-secondary {
+  background: var(--secondary-color, #657ed4) !important;
+  border-color: var(--secondary-color, #657ed4) !important;
+}
+
+.p-button-success {
+  background: var(--green-500, #22c55e) !important;
+  border-color: var(--green-500, #22c55e) !important;
+}
+
+.p-button-danger {
+  background: var(--red-500, #ff331f) !important;
+  border-color: var(--red-500, #ff331f) !important;
+}
+
+.p-button-text {
+  background: transparent !important;
+  color: var(--primary-color, #3626a7) !important;
+  border-color: transparent !important;
+}
+
+.p-button-text:hover {
+  background: rgba(54, 38, 167, 0.04) !important;
+}
+
+/* Input fields */
+.p-inputtext {
+  padding: 0.75rem !important;
+  font-size: 1rem !important;
+  color: #495057 !important;
+  background: #ffffff !important;
+  border: 1px solid #ced4da !important;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s !important;
+  appearance: none !important;
+  border-radius: 3px !important;
+}
+
+.p-inputtext:enabled:hover {
+  border-color: var(--primary-color, #3626a7) !important;
+}
+
+.p-inputtext:enabled:focus {
+  outline: 0 none !important;
+  outline-offset: 0 !important;
+  box-shadow: 0 0 0 0.2rem rgba(54, 38, 167, 0.25) !important;
+  border-color: var(--primary-color, #3626a7) !important;
+}
+
+.p-inputtext.p-invalid {
+  border-color: #e24c4c !important;
+}
+
+/* Dropdown */
+.p-dropdown {
+  background: #ffffff !important;
+  border: 1px solid #ced4da !important;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s !important;
+  border-radius: 3px !important;
+}
+
+.p-dropdown:not(.p-disabled):hover {
+  border-color: var(--primary-color, #3626a7) !important;
+}
+
+.p-dropdown:not(.p-disabled).p-focus {
+  outline: 0 none !important;
+  outline-offset: 0 !important;
+  box-shadow: 0 0 0 0.2rem rgba(54, 38, 167, 0.25) !important;
+  border-color: var(--primary-color, #3626a7) !important;
+}
+
+/* Editor (Quill) */
+.p-editor-container .p-editor-content {
+  border: 1px solid #ced4da !important;
+  border-radius: 3px !important;
+}
+
+.p-editor-container .p-editor-content .ql-editor {
+  background: #ffffff !important;
+  color: #495057 !important;
+}
+
+.p-editor-container .p-editor-toolbar {
+  background: #f8f9fa !important;
+  border: 1px solid #ced4da !important;
+  border-bottom: 0 none !important;
+  border-top-left-radius: 3px !important;
+  border-top-right-radius: 3px !important;
 }
 
 :root {

@@ -24,7 +24,7 @@ import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Chip } from 'primereact/chip';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 // Sortable Item Component
 interface SortableItemProps {
@@ -137,7 +137,7 @@ export default function List() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [failedFavicons, setFailedFavicons] = useState<Set<string>>(new Set());
-  const [isInitialized, setIsInitialized] = useState(false);
+  const isInitialized = useRef(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -155,12 +155,12 @@ export default function List() {
       const filterValue = decodeURIComponent(hash.replace('#category=', ''));
       dispatch(setSelectedFilter(filterValue));
     }
-    setIsInitialized(true);
+    isInitialized.current = true;
   }, [dispatch]);
 
   // Update URL hash when filter changes
   useEffect(() => {
-    if (!isInitialized || typeof window === 'undefined') return;
+    if (!isInitialized.current || typeof window === 'undefined') return;
 
     if (selectedFilter === null) {
       // Remove hash when "All" is selected
