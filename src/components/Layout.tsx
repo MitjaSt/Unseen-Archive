@@ -6,7 +6,7 @@ export default function Layout() {
   const location = useLocation();
   // Initialize state from localStorage directly
   const [isCollapsed, setIsCollapsed] = useState(() => {
-    const saved = localStorage.getItem('navCollapsed') || 'true';
+    const saved = localStorage.getItem('navCollapsed') ?? 'true';
     return saved !== null ? JSON.parse(saved) : false;
   });
 
