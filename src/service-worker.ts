@@ -22,7 +22,6 @@ chrome.commands.onCommand.addListener((command) => {
   }
 });
 
-// Keep service worker alive
 chrome.runtime.onInstalled.addListener(() => {
   console.log('Unseen Archive extension installed');
 });
