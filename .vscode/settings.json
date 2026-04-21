@@ -8,8 +8,6 @@
     "source.fixAll.eslint": "explicit"
   },
   "editor.formatOnSave": true,
-  "typescript.preferences.organizeImportsOnSave": true,
-  "javascript.preferences.organizeImportsOnSave": true,
   "files.associations": {
     "Makefile*.inc": "makefile",
     "*.mk": "makefile"
