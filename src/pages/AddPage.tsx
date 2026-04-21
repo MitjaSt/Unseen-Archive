@@ -118,6 +118,12 @@ export default function Add() {
     validateAndSubmit(true);
   };
 
+
+  const handleSubmitAndAddAnother = (e: React.FormEvent) => {
+    e.preventDefault();
+    validateAndSubmit(false);
+  };
+
   const handleCancel = () => {
     navigate('/list');
   };
@@ -240,7 +246,7 @@ export default function Add() {
         <div className="flex justify-between gap-4">
           <Button type="button" label="Cancel" icon="pi pi-times" className="p-button-secondary" onClick={handleCancel} />
           <div className="flex gap-4">
-            <Button type="button" label="Submit & Add Another" icon="pi pi-plus" className="p-button-success" onClick={handleSubmit} />
+            <Button type="button" label="Submit & Add Another" icon="pi pi-plus" className="p-button-success" onClick={handleSubmitAndAddAnother} />
             <Button type="submit" label="Submit" icon="pi pi-check" className="p-button-primary" />
           </div>
         </div>

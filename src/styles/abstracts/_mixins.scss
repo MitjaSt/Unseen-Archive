@@ -1,0 +1,38 @@
+// Focus State Mixin
+@mixin focus-state {
+  outline: 0 none !important;
+  outline-offset: 0 !important;
+  box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25) !important;
+  border-color: var(--primary-color, $primary-color) !important;
+}
+
+// Input Base Styles Mixin
+@mixin input-base {
+  padding: $padding-standard !important;
+  font-size: $font-size-base !important;
+  background: $white !important;
+  border: 1px solid $border-color !important;
+  border-radius: $border-radius !important;
+  transition: $transition-standard !important;
+}
+
+// Button Base Mixin
+@mixin button-base {
+  padding: $padding-standard 1.25rem !important;
+  font-size: $font-size-base !important;
+  border-radius: $border-radius !important;
+  transition: $transition-standard !important;
+}
+
+// Button Variant Mixin
+@mixin button-variant($bg-color, $hover-color: null) {
+  background: $bg-color !important;
+  border-color: $bg-color !important;
+
+  @if $hover-color {
+    &:hover {
+      background: $hover-color !important;
+      border-color: $hover-color !important;
+    }
+  }
+}

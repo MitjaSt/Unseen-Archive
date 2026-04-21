@@ -3,12 +3,14 @@ include Makefile.misc.inc
 # Declare phony targets
 .PHONY: start-dev test test-ci
 
+
 # Development
 start-dev:
 	$(call log, Clearing out dist folder ...)
 	rm -rf dist
 	$(call log, Running Vite dev server on port $(DEV_SERVER_PORT)...)
 	npm run dev -- --port $(DEV_SERVER_PORT)
+
 
 # Build
 build:

@@ -1,14 +1,14 @@
 
 
+import type { Category } from '@/lib/store/categoriesSlice';
+import { addCategory, removeCategory } from '@/lib/store/categoriesSlice';
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import type { Item } from '@/lib/store/itemsSlice';
+import { addItem, clearItems } from '@/lib/store/itemsSlice';
 import { Button } from 'primereact/button';
 import { FileUpload, FileUploadHandlerEvent } from 'primereact/fileupload';
-import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
-import { addItem, clearItems } from '@/lib/store/itemsSlice';
-import { addCategory, removeCategory } from '@/lib/store/categoriesSlice';
 import { Toast } from 'primereact/toast';
 import { useRef } from 'react';
-import type { Item } from '@/lib/store/itemsSlice';
-import type { Category } from '@/lib/store/categoriesSlice';
 
 interface ExportData {
   items: Item[];
@@ -175,22 +175,6 @@ export default function Settings() {
           />
         </div>
 
-        {/* Storage Information */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">Storage Information</h2>
-          <div className="space-y-2 text-sm text-gray-600">
-            <p>
-              <span className="font-semibold">Storage Type:</span> Browser Local Storage
-            </p>
-            <p>
-              <span className="font-semibold">Data Persistence:</span> Data is stored locally in your browser and persists across sessions
-            </p>
-            <p className="text-amber-600 mt-4">
-              <i className="pi pi-exclamation-triangle mr-2"></i>
-              Note: Clearing browser data or using incognito mode will result in data loss. Regular backups are recommended.
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   );

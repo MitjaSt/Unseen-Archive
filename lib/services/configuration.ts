@@ -1,25 +1,37 @@
 
 class ConfigurationService {
   isDevEnvironment(): boolean {
-    // In Next.js, process.env.NODE_ENV is replaced at build time
-    // This is safe to use in client components as it becomes a static value
-    return process.env.NODE_ENV === 'development';
+    // Vite replaces import.meta.env.MODE at build time
+    // In development: 'development', in production: 'production'
+    return import.meta.env.MODE === 'development';
   }
 
   isProductionEnvironment(): boolean {
-    return process.env.NODE_ENV === 'production';
+    return import.meta.env.MODE === 'production';
   }
 
   getEnvironment(): string {
-    return process.env.NODE_ENV || 'development';
+    return import.meta.env.MODE || 'development';
   }
 
   isBrowser(): boolean {
     return typeof window !== 'undefined';
   }
 
+  isExtension(): boolean {
+    // Check if running as Chrome extension
+    return this.isBrowser() && typeof chrome !== 'undefined' && !!chrome.runtime?.id;
+  }
+
   isLocalhost(): boolean {
     if (!this.isBrowser()) return false;
+
+    // For Chrome extensions, check if running in development mode
+    if (this.isExtension()) {
+      return this.isDevEnvironment();
+    }
+
+    // For regular web app
     return window.location.hostname === 'localhost' ||
            window.location.hostname === '127.0.0.1' ||
            window.location.hostname === '[::1]';

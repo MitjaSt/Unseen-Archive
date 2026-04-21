@@ -1,0 +1,20 @@
+/* PrimeReact Editor (Quill) Overrides */
+.p-editor-container {
+  .p-editor-content {
+    border: 1px solid $border-color !important;
+    border-radius: $border-radius !important;
+
+    .ql-editor {
+      background: $white !important;
+      color: $text-color !important;
+    }
+  }
+
+  .p-editor-toolbar {
+    background: $light-gray !important;
+    border: 1px solid $border-color !important;
+    border-bottom: 0 none !important;
+    border-top-left-radius: $border-radius !important;
+    border-top-right-radius: $border-radius !important;
+  }
+}

@@ -9,6 +9,15 @@ export default defineConfig({
       '@': path.resolve(__dirname, './'),
     },
   },
+  base: './', // Use relative paths for assets (required for Chrome extensions)
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // Suppress deprecation warnings for @import (required for Tailwind compatibility)
+        silenceDeprecations: ['import'],
+      },
+    },
+  },
   build: {
     outDir: 'dist',
     rollupOptions: {
